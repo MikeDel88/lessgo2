@@ -15,7 +15,7 @@ public class UserBean {
     private Boolean otherTeam;
     private Double lat;
     private Double lon;
-    private long statuts_id;
+    private Long statuts_id;
 
     public long getUserId() {
         return userId;
@@ -65,11 +65,11 @@ public class UserBean {
         this.lon = lon;
     }
 
-    public long getStatuts_id() {
+    public Long getStatuts_id() {
         return statuts_id;
     }
 
-    public void setStatuts_id(long statuts_id) {
+    public void setStatuts_id(Long statuts_id) {
         this.statuts_id = statuts_id;
     }
 }

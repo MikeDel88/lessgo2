@@ -22,7 +22,6 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.+'
     implementation 'org.hibernate:hibernate-validator:5.+'
-    implementation 'com.google.code.gson:gson:2.8.6'
 }
 
 test {
