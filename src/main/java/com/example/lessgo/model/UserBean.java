@@ -5,8 +5,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 public class UserBean {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name="users_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
     private String pseudo;
     private String password;
