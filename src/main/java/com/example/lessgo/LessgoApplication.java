@@ -9,5 +9,5 @@ public class LessgoApplication {
     public static void main(String[] args) {
         SpringApplication.run(LessgoApplication.class, args);
     }
-        //
+
 }

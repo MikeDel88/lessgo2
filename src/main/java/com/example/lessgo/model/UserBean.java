@@ -6,20 +6,22 @@ import javax.persistence.*;
 @Table(name = "users")
 public class UserBean {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long users_id;
+    @Column(name="users_id")
+    private long userId;
     private String pseudo;
     private String password;
-    private Boolean other_team;
+    @Column(name="other_team")
+    private Boolean otherTeam;
     private Double lat;
     private Double lon;
     private long statuts_id;
 
-    public long getUsers_id() {
-        return users_id;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUsers_id(long users_id) {
-        this.users_id = users_id;
+    public void setUserId(long users_id) {
+        this.userId = users_id;
     }
 
     public String getPseudo() {
@@ -38,12 +40,12 @@ public class UserBean {
         this.password = password;
     }
 
-    public Boolean getOther_team() {
-        return other_team;
+    public Boolean getOtherTeam() {
+        return otherTeam;
     }
 
-    public void setOther_team(Boolean other_team) {
-        this.other_team = other_team;
+    public void setOtherTeam(Boolean other_team) {
+        this.otherTeam = other_team;
     }
 
     public Double getLat() {
