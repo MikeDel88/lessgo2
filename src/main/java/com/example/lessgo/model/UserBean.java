@@ -17,6 +17,16 @@ public class UserBean {
     private Double lon;
     private Long statuts_id;
 
+    public UserBean() {
+    }
+
+    public UserBean(long userId, String pseudo, Double lat, Double lon) {
+        this.userId = userId;
+        this.pseudo = pseudo;
+        this.lat = lat;
+        this.lon = lon;
+    }
+
     public long getUserId() {
         return userId;
     }

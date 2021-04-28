@@ -16,9 +16,9 @@ public class MyRestController {
 
     // Doit retourner la liste la liste des positions des utilisateurs équipe et autres équipe
     @GetMapping("/getPositions")
-    public ArrayList<UserBean> getPositions(){
+    public ArrayList<UserBean> getPositions() {
         System.out.println("/getPositions");
-        return (ArrayList<UserBean>) userDao.findAll();
+        return (ArrayList<UserBean>) userDao.findAllUsersWithoutPsw();
     }
 
 }
