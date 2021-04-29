@@ -31,24 +31,26 @@ public class UserController {
 
         if (u == null) {
             throw new Exception("Utilisateur non trouvé");
-        } else if (userBean.getLat() != null && userBean.getLon() != null) {
+        }
+
+        if (userBean.getLat() != null && userBean.getLon() != null) {
             if (userBean.getLat() > -90 && userBean.getLat() < 90 && userBean.getLon() > -180 && userBean.getLon() < 180) {
                 u.setLat(userBean.getLat());
                 u.setLon(userBean.getLon());
-                userDao.save(u);
             } else {
                 throw new Exception("Les cordonnées géographiques sont incorrectes.");
             }
-        } else if (userBean.getPseudo() != null) {
-            if (userBean.getPseudo().length() < 45){
+        }
+
+        if (userBean.getPseudo() != null) {
+            if (userBean.getPseudo().length() < 45) {
                 u.setPseudo(userBean.getPseudo());
-                userDao.save(u);
             } else {
                 throw new Exception("Votre pseudo doit contenir moins de 45 caractères.");
             }
-        } else {
-            throw new Exception("Erreur");
         }
+
+        userDao.save(u);
     }
 
     /**
@@ -87,16 +89,11 @@ public class UserController {
     public UserBean registerSubmit(@RequestBody UserBean userBean) throws Exception {
         System.out.println("/registerSubmit");
 
-        UserBean u = new UserBean();
-
         if (userBean.getPseudo() != null && userBean.getPassword() != null) {
             UserBean userBdd = userDao.findByPseudo(userBean.getPseudo());
 
-            if (userBdd != null) {
-                if (userBdd.getPseudo().equals(userBean.getPseudo())) {
-                    throw new Exception("Ce pseudo existe déjà");
-                }
-            } else {
+            if (userBdd == null) {
+                UserBean u = new UserBean();
                 String pswEncode = encoder.encode(userBean.getPassword());
                 userBean.setPseudo(userBean.getPseudo());
                 userBean.setPassword(pswEncode);
@@ -104,8 +101,10 @@ public class UserController {
                 userBean.setIdSession(session_id);
                 userDao.save(userBean);
                 u.setIdSession(session_id);
+                return u;
+            } else {
+                throw new Exception("Ce pseudo existe déjà");
             }
-            return u;
         } else {
             throw new Exception("Veuillez saisir vos identifiants de connexion");
         }

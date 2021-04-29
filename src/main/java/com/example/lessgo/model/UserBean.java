@@ -8,8 +8,7 @@ public class UserBean {
 
     @Column(name="users_id")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.springframework.data.annotation.Transient
-    private long userId;
+    private Long userId;
     @Column(name="id_session")
     private String idSession;
     private String pseudo;
@@ -42,11 +41,11 @@ public class UserBean {
         this.idSession = idSession;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long users_id) {
+    public void setUserId(Long users_id) {
         this.userId = users_id;
     }
 
