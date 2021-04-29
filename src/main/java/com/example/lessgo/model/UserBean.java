@@ -8,7 +8,10 @@ public class UserBean {
 
     @Column(name="users_id")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @org.springframework.data.annotation.Transient
     private long userId;
+    @Column(name="id_session")
+    private String idSession;
     private String pseudo;
     private String password;
     @Column(name="other_team")
@@ -20,11 +23,23 @@ public class UserBean {
     public UserBean() {
     }
 
+    public UserBean(String idSession) {
+        this.idSession = idSession;
+    }
+
     public UserBean(long userId, String pseudo, Double lat, Double lon) {
         this.userId = userId;
         this.pseudo = pseudo;
         this.lat = lat;
         this.lon = lon;
+    }
+
+    public String getIdSession() {
+        return idSession;
+    }
+
+    public void setIdSession(String idSession) {
+        this.idSession = idSession;
     }
 
     public long getUserId() {
