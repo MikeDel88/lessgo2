@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -28,24 +27,25 @@ public class UserController {
     public void updateUser(@RequestBody UserBean userBean) throws Exception {
         System.out.println("/updateUser");
 
-        //met à jour findbysession_id
+        UserBean u = userDao.findByIdSession(userBean.getIdSession());
 
-        Optional<UserBean> user = userDao.findById(userBean.getUserId());
-
-        if (!user.isPresent()) {
-            throw new Exception("User not found");
-        }
-
-        UserBean userTemp = user.get();
-
-        if (userBean.getLat() != null && userBean.getLon() != null) {
+        if (u == null) {
+            throw new Exception("Utilisateur non trouvé");
+        } else if (userBean.getLat() != null && userBean.getLon() != null) {
             if (userBean.getLat() > -90 && userBean.getLat() < 90 && userBean.getLon() > -180 && userBean.getLon() < 180) {
-                userTemp.setLat(userBean.getLat());
-                userTemp.setLon(userBean.getLon());
+                u.setLat(userBean.getLat());
+                u.setLon(userBean.getLon());
+                userDao.save(u);
             } else {
-                throw new Exception("Erreur, lon et lat");
+                throw new Exception("Les cordonnées géographiques sont incorrectes.");
             }
-            userDao.save(userTemp);
+        } else if (userBean.getPseudo() != null) {
+            if (userBean.getPseudo().length() < 45){
+                u.setPseudo(userBean.getPseudo());
+                userDao.save(u);
+            } else {
+                throw new Exception("Votre pseudo doit contenir moins de 45 caractères.");
+            }
         } else {
             throw new Exception("Erreur");
         }
@@ -64,7 +64,7 @@ public class UserController {
 
         UserBean userBdd = userDao.findByPseudo(userBean.getPseudo());
 
-        if (encoder.matches(userBean.getPassword(), userBdd.getPassword())){
+        if (encoder.matches(userBean.getPassword(), userBdd.getPassword())) {
             String session_id = UUID.randomUUID().toString();
             userBdd.setIdSession(session_id);
             userDao.save(userBdd);
