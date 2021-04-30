@@ -64,7 +64,13 @@ public class UserController {
     public UserBean loginSubmit(@RequestBody UserBean userBean) throws Exception {
         System.out.println("/loginSubmit");
 
+        String error = "Erreur de connexion";
+
         UserBean userBdd = userDao.findByPseudo(userBean.getPseudo());
+
+        if (userBdd == null) {
+            throw new Exception(error);
+        }
 
         if (encoder.matches(userBean.getPassword(), userBdd.getPassword())) {
             String session_id = UUID.randomUUID().toString();
@@ -73,7 +79,7 @@ public class UserController {
             UserBean u = new UserBean(session_id);
             return u;
         } else {
-            throw new Exception("Erreur de connexion");
+            throw new Exception(error);
         }
     }
 

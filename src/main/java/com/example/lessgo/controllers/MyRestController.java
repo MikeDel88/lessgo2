@@ -20,5 +20,4 @@ public class MyRestController {
         System.out.println("/getPositions");
         return (ArrayList<UserBean>) userDao.findAllUsersWithoutPsw();
     }
-
 }
