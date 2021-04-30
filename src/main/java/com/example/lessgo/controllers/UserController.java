@@ -49,7 +49,6 @@ public class UserController {
                 throw new Exception("Votre pseudo doit contenir moins de 45 caractères.");
             }
         }
-
         userDao.save(u);
     }
 
@@ -82,7 +81,6 @@ public class UserController {
             throw new Exception(error);
         }
     }
-
 
     /**
      * Permet l'inscription d'un user

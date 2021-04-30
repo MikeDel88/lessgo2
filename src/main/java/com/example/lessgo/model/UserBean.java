@@ -26,8 +26,7 @@ public class UserBean {
         this.idSession = idSession;
     }
 
-    public UserBean(long userId, String pseudo, Double lat, Double lon) {
-        this.userId = userId;
+    public UserBean(String pseudo, Double lat, Double lon) {
         this.pseudo = pseudo;
         this.lat = lat;
         this.lon = lon;
